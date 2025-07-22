@@ -1,0 +1,27 @@
+name: Build
+on: [push]
+jobs:
+  build:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW32
+          update: true
+          install: >-
+            mingw-w64-i686-meson
+            mingw-w64-i686-toolchain
+
+      - run: |
+          meson release --buildtype release
+          cd release
+          ninja
+
+      - uses: actions/upload-artifact@v4
+        with:
+          path: release/src
