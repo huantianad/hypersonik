@@ -356,9 +356,21 @@ static __stdcall HRESULT ds_buffer_get_caps(
         IDirectSoundBuffer *com,
         DSBCAPS *out)
 {
+    struct ds_buffer *self;
+
     trace("%s(%p) [stub]", __func__, out);
 
-    return E_NOTIMPL;
+    if (out == NULL) {
+        return E_POINTER;
+    }
+
+    self = ds_buffer_downcast(com);
+    assert(out->dwSize == 20);
+    out->dwBufferBytes = self->conv_nbytes;
+    out->dwUnlockTransferRate = 100000000;
+    out->dwPlayCpuOverhead = 0;
+
+    return 0;
 }
 
 static __stdcall HRESULT ds_buffer_get_current_position(
