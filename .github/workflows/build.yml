@@ -1,0 +1,28 @@
+name: Build and Upload Release
+on: [push]
+jobs:
+  build-and-upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: sudo apt-get install gcc-mingw-w64 meson
+
+      - name: Compile project
+        run: |
+          meson setup release --cross w64-mingw32.txt --buildtype release
+          meson compile -C release
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          path: release/src/dsound.dll
+
+      - name: Upload release
+        uses: softprops/action-gh-release@v2
+        if: github.ref_type == 'tag'
+        with:
+          draft: true
+          files: release/src/dsound.dll
