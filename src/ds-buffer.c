@@ -370,6 +370,7 @@ static __stdcall HRESULT ds_buffer_get_caps(
     }
 
     self = ds_buffer_downcast(com);
+    out->dwFlags = DSBCAPS_CTRLFREQUENCY | DSBCAPS_CTRLPAN | DSBCAPS_CTRLVOLUME;
     out->dwBufferBytes = self->conv_nbytes;
     out->dwUnlockTransferRate = 100000000;
     out->dwPlayCpuOverhead = 0;
