@@ -6,12 +6,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: awalsh128/cache-apt-pkgs-action@v1
-        with:
-          packages: gcc-mingw-w64 meson
-          version: 1.1
-
-      - run: |
+      - name: Install dependencies and build
+        run: |
+          sudo apt install -y gcc-mingw-w64 meson
           meson setup release --cross w64-mingw32.txt
           meson compile -C release
 
