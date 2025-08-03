@@ -737,6 +737,8 @@ static __stdcall HRESULT ds_buffer_stop(IDirectSoundBuffer *com)
     struct snd_command *cmd;
     int r;
 
+    trace("%s(%p) [??]", __func__, com);
+
     self = ds_buffer_downcast(com);
 
     r = snd_client_cmd_alloc(self->cli, &cmd);
