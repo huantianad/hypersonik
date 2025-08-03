@@ -12,7 +12,7 @@ jobs:
           version: 1.0
 
       - run: |
-          meson setup release --cross w64-mingw32.txt --buildtype release
+          meson setup release --cross w64-mingw32.txt
           meson compile -C release
 
       - uses: actions/upload-artifact@v4
