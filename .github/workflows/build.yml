@@ -9,7 +9,7 @@ jobs:
       - uses: awalsh128/cache-apt-pkgs-action@v1
         with:
           packages: gcc-mingw-w64 meson
-          version: 1.0
+          version: 1.1
 
       - run: |
           meson setup release --cross w64-mingw32.txt
