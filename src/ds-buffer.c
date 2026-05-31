@@ -651,12 +651,12 @@ static __stdcall HRESULT ds_buffer_play(
     if (r < 0) {
         return hr_from_errno(r);
     }
-    
+
     self->looping = flags & DSBPLAY_LOOPING;
 
     if (!self->playing) {
         self->playing = true;
-        
+
         snd_command_play(cmd, self->stm, self->looping);
         snd_client_cmd_submit(self->cli, cmd);
     }
@@ -759,6 +759,8 @@ static __stdcall HRESULT ds_buffer_set_volume(
 {
     struct ds_buffer *self;
 
+    trace("%s(%p) [%ld]", __func__, com, millibels);
+
     if (millibels < -10000 || millibels > 0) {
         trace("%s: Attenutation param out of range: %li", millibels);
 
@@ -776,6 +778,8 @@ static __stdcall HRESULT ds_buffer_stop(IDirectSoundBuffer *com)
     struct ds_buffer *self;
     struct snd_command *cmd;
     int r;
+
+    trace("%s(%p) [??]", __func__, com);
 
     self = ds_buffer_downcast(com);
 
