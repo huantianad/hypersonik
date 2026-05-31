@@ -12,7 +12,7 @@ jobs:
 
       - name: Compile project
         run: |
-          meson setup release --cross w64-mingw32.txt --buildtype release
+          meson setup release --cross w64-mingw32.txt
           meson compile -C release
 
       - name: Upload artifact
